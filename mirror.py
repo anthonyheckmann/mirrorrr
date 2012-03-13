@@ -133,7 +133,7 @@ class MirroredContent(object):
 
     logging.debug("Fetching '%s'", mirrored_url)
     try:
-      response = urlfetch.fetch(mirrored_url)
+      response = urlfetch.fetch(mirrored_url, follow_redirects=False)
     except (urlfetch.Error, apiproxy_errors.Error):
       logging.exception("Could not fetch URL")
       return None
@@ -275,6 +275,7 @@ class MirrorHandler(BaseHandler):
       self.response.headers['cache-control'] = \
         'max-age=%d' % EXPIRATION_DELTA_SECONDS
 
+    self.response.set_status(content.status)
     self.response.out.write(content.data)
 
 
