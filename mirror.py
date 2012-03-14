@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__author__ = "Brett Slatkin (bslatkin@gmail.com)"
+__author__ = ["Brett Slatkin (bslatkin@gmail.com)", "liruqi@gmail.com"]
 
 import datetime
 import hashlib
@@ -44,7 +44,10 @@ EXPIRATION_RECENT_URLS_SECONDS = 90
 ## EXPIRATION_RECENT_URLS_SECONDS = 1
 
 HTTP_PREFIX = "http://"
-HTTPS_PREFIX = "http://"
+HTTPS_PREFIX = "https://"
+HSTS_DOMAINS = {
+    "greatfire.org": 1,
+}
 
 IGNORE_HEADERS = frozenset([
   'set-cookie',
@@ -232,6 +235,8 @@ class MirrorHandler(BaseHandler):
 
     translated_address = self.get_relative_url()[1:]  # remove leading /
     mirrored_url = HTTP_PREFIX + translated_address
+    if base_url in HSTS_DOMAINS:
+        mirrored_url = HTTPS_PREFIX + translated_address
 
     # Use sha256 hash instead of mirrored url for the key name, since key
     # names can only be 500 bytes in length; URLs may be up to 2KB.
