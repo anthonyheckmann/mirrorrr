@@ -59,10 +59,23 @@ REPLACEMENT_REGEXES = [
   (TAG_START + ROOT_DIR_URL_REGEX,
      "\g<tag>\g<equals>\g<quote>/%(base)s/"),
 
-  # Need this because HTML tags could end with '/>', which confuses the
-  # tag-matching regex above, since that's the end-of-match signal.
-  (TAG_START + ABSOLUTE_URL_REGEX,
-     "\g<tag>\g<equals>\g<quote>/\g<url>"),
+  (CSS_IMPORT_START + SAME_DIR_URL_REGEX,
+     "@import\g<spacing>\g<quote>%(accessed_dir)s\g<url>"),
+
+  (CSS_IMPORT_START + TRAVERSAL_URL_REGEX,
+     "@import\g<spacing>\g<quote>%(accessed_dir)s/\g<relative>/\g<url>"),
+
+  (CSS_IMPORT_START + BASE_RELATIVE_URL_REGEX,
+     "@import\g<spacing>\g<quote>/%(base)s/\g<url>"),
+
+  (CSS_URL_START + SAME_DIR_URL_REGEX,
+     "url(\g<quote>%(accessed_dir)s\g<url>"),
+  
+  (CSS_URL_START + TRAVERSAL_URL_REGEX,
+      "url(\g<quote>%(accessed_dir)s/\g<relative>/\g<url>"),
+
+  (CSS_URL_START + BASE_RELATIVE_URL_REGEX,
+      "url(\g<quote>/%(base)s/\g<url>"),
 ]
 
 ################################################################################
