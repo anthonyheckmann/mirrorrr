@@ -233,7 +233,9 @@ class MirrorHandler(BaseHandler):
     if base_url in BAD_HOSTS:
       logging.warning('Encountered bad request "%s"; ignoring', mirrored_url)
       return self.error(404)
-
+    if re.match(r'[a-zA-Z\d-]{,63}(\.[a-zA-Z\d-]{,63})*', base_url) == None:
+      logging.warning('Encountered bad domain "%s"; ignoring', mirrored_url)
+      return self.error(404)
     # Log the user-agent and referrer, to see who is linking to us.
     logging.debug('User-Agent = "%s", Referrer = "%s"',
                   self.request.user_agent,
