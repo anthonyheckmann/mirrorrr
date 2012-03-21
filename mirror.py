@@ -51,6 +51,7 @@ HSTS_DOMAINS = {
     "www.github.com": 1,
 }
 
+BAD_HOSTS = ["pixel.quantserve.com", "news"]
 IGNORE_HEADERS = frozenset([
   'set-cookie',
   'expires',
@@ -134,9 +135,6 @@ class MirroredContent(object):
     if base_url in MIRROR_HOSTS:
       logging.warning('Encountered recursive request for "%s"; ignoring',
                       mirrored_url)
-      return None
-    if base_url in ["pixel.quantserve.com", "news"]:
-      logging.warning('Encountered bad request "%s"; ignoring', mirrored_url)
       return None
 
     logging.debug("Fetching '%s'", mirrored_url)
@@ -231,7 +229,11 @@ class HomeHandler(BaseHandler):
 class MirrorHandler(BaseHandler):
   def get(self, base_url):
     assert base_url
-    
+
+    if base_url in BAD_HOSTS:
+      logging.warning('Encountered bad request "%s"; ignoring', mirrored_url)
+      return self.error(404)
+
     # Log the user-agent and referrer, to see who is linking to us.
     logging.debug('User-Agent = "%s", Referrer = "%s"',
                   self.request.user_agent,
