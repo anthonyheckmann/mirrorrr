@@ -47,6 +47,8 @@ HTTP_PREFIX = "http://"
 HTTPS_PREFIX = "https://"
 HSTS_DOMAINS = {
     "greatfire.org": 1,
+    "github.com": 1,
+    "www.github.com": 1,
 }
 
 IGNORE_HEADERS = frozenset([
@@ -132,6 +134,9 @@ class MirroredContent(object):
     if base_url in MIRROR_HOSTS:
       logging.warning('Encountered recursive request for "%s"; ignoring',
                       mirrored_url)
+      return None
+    if base_url in ["pixel.quantserve.com", "news"]:
+      logging.warning('Encountered bad request "%s"; ignoring', mirrored_url)
       return None
 
     logging.debug("Fetching '%s'", mirrored_url)
