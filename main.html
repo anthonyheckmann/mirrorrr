@@ -3,7 +3,7 @@
 
 <html>
 <head>
-  <title>mirror - ɹoɹɹıɯ</title>
+  <title>West chamber proxy</title>
   <link rel="stylesheet" href="static/base.2.css" type="text/css" charset="utf-8"/>
   <link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
   <script type="text/javascript" charset="utf-8">
@@ -41,7 +41,7 @@
 <div id="container">
 
 <div id="header">
-  <span>mıɾɾoɾ</span><span>ɿoɿɿim</span>
+  <span>West-chamber proxy</span><span>西厢代理</span>
 </div>
 
 <div id="form_wrapper">
@@ -51,20 +51,24 @@
   </div>
   </form>
 
-  <div id="warning">
-  Fair use: All content belongs to the original copyright holders, respectively.
+  <div id="warning">Just another possibility to free yourself from insivible jail.
   </div>
 </div>
 
 <div id="recent">
-  <div class="header">recent</div>
+  <div class="header">关于</div>
+	<div style="margin-left: 20px;">
+		<p>
+		可以通过<a href="https://github.com/liruqi/west-chamber-season-3/tree/master/west-chamber-proxy">项目主页</a>、<a href="https://plus.google.com/108661470402896863593/posts">Google+ Page</a>了解更多。
+		</p>
+	</div>
+
+  <div class="header">Download 下载</div>
   <div id="recent_entries">
-    {% for entry in latest_urls %}
-    <div class="url_container">
-      <span class="url"><a class="url{{forloop.counter}}" rel="nofollow" href="/{{entry.translated_address}}">{% if entry.display_address %}{{entry.display_address}}{% else %}{{entry.translated_address}}{% endif %}</a></span>
-      <span class="info url{{forloop.counter}}">{{entry.last_updated|timesince}} ago</span>
-    </div>
-    {% endfor %}
+    <p>本代理需要配合客户端使用，客户度下载
+        <a target="_blank" href="https://github.com/downloads/liruqi/west-chamber-season-3/west-chamber-proxy-20120131.zip">Windows</a>, 
+        <a target="_blank" href="https://github.com/liruqi/GoAgentX/downloads">MacOSX</a>, 
+        <a target="_blank" href="https://github.com/liruqi/west-chamber-season-3/zipball/master">Linux</a></p>
   </div>
 </div>
 

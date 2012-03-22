@@ -244,7 +244,7 @@ class MirrorHandler(BaseHandler):
 
     translated_address = self.get_relative_url()[1:]  # remove leading /
     mirrored_url = HTTP_PREFIX + translated_address
-    if base_url.split('.')[-1] != "com"
+    if base_url.split('.')[-1] != "com":
       return self.redirect("http://annjonescnch.appspot.com/" + translated_address)
 
     if base_url in HSTS_DOMAINS:
