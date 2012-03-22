@@ -231,10 +231,10 @@ class MirrorHandler(BaseHandler):
     assert base_url
 
     if base_url in BAD_HOSTS:
-      logging.warning('Encountered bad request "%s"; ignoring', mirrored_url)
+      logging.warning('Encountered bad request "%s"; ignoring', base_url)
       return self.error(404)
     if re.match(r'[a-zA-Z\d-]{,63}(\.[a-zA-Z\d-]{,63})*', base_url) == None:
-      logging.warning('Encountered bad domain "%s"; ignoring', mirrored_url)
+      logging.warning('Encountered bad domain "%s"; ignoring', base_url)
       return self.error(404)
     # Log the user-agent and referrer, to see who is linking to us.
     logging.debug('User-Agent = "%s", Referrer = "%s"',
@@ -244,8 +244,11 @@ class MirrorHandler(BaseHandler):
 
     translated_address = self.get_relative_url()[1:]  # remove leading /
     mirrored_url = HTTP_PREFIX + translated_address
+    if base_url.split('.')[-1] != "com"
+      return self.redirect("http://annjonescnch.appspot.com/" + translated_address)
+
     if base_url in HSTS_DOMAINS:
-        mirrored_url = HTTPS_PREFIX + translated_address
+      mirrored_url = HTTPS_PREFIX + translated_address
 
     # Use sha256 hash instead of mirrored url for the key name, since key
     # names can only be 500 bytes in length; URLs may be up to 2KB.
