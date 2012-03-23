@@ -243,6 +243,8 @@ class MirrorHandler(BaseHandler):
     logging.debug('Base_url = "%s", url = "%s"', base_url, self.request.url)
 
     translated_address = self.get_relative_url()[1:]  # remove leading /
+    if translated_address == "favicon.ico":
+      return self.redirect("/favicon.ico")
     mirrored_url = HTTP_PREFIX + translated_address
     if base_url.split('.')[-1] != "com":
       return self.redirect("http://annjonescnch.appspot.com/" + translated_address)
