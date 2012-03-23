@@ -233,7 +233,7 @@ class MirrorHandler(BaseHandler):
     if base_url in BAD_HOSTS:
       logging.warning('Encountered bad request "%s"; ignoring', base_url)
       return self.error(404)
-    if re.match(r'[a-zA-Z\d-]{,63}(\.[a-zA-Z\d-]{,63})*', base_url) == None:
+    if re.match(r'[a-zA-Z\d-]{,63}(\.[a-zA-Z\d-]{,63})+', base_url) == None:
       logging.warning('Encountered bad domain "%s"; ignoring', base_url)
       return self.error(404)
     # Log the user-agent and referrer, to see who is linking to us.
@@ -246,6 +246,8 @@ class MirrorHandler(BaseHandler):
     mirrored_url = HTTP_PREFIX + translated_address
     if base_url.split('.')[-1] != "com":
       return self.redirect("http://annjonescnch.appspot.com/" + translated_address)
+    if base_url.split('.')[-1] == "com":
+      return self.redirect("http://wcproxyx.appspot.com/" + translated_address)
 
     if base_url in HSTS_DOMAINS:
       mirrored_url = HTTPS_PREFIX + translated_address
