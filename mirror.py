@@ -225,6 +225,9 @@ class HomeHandler(BaseHandler):
     }
     self.response.out.write(template.render("main.html", context))
 
+class HowHandler(BaseHandler):
+  def get(self):
+    self.response.out.write(template.render("how.html", {}))
 
 class MirrorHandler(BaseHandler):
   def get(self, base_url):
@@ -248,7 +251,7 @@ class MirrorHandler(BaseHandler):
     mirrored_url = HTTP_PREFIX + translated_address
     if self.request.user_agent.find("Android") == -1:
       if base_url.split('.')[-1] != "com":
-        return self.redirect("http://annjonescnch.appspot.com/" + translated_address)
+        return self.redirect("http://liruqi001.appspot.com/" + translated_address)
       if base_url.split('.')[-1] == "com":
         return self.redirect("http://wcproxyx.appspot.com/" + translated_address)
 
@@ -343,6 +346,7 @@ class CleanupHandler(webapp.RequestHandler):
 app = webapp.WSGIApplication([
   (r"/", HomeHandler),
   (r"/main", HomeHandler),
+  (r"/how", HowHandler),
   (r"/kaboom", KaboomHandler),
   (r"/admin", AdminHandler),
   (r"/cleanup", CleanupHandler),
