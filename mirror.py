@@ -51,7 +51,7 @@ HSTS_DOMAINS = {
     "www.github.com": 1,
 }
 
-BAD_HOSTS = ["pixel.quantserve.com", "news"]
+BAD_HOSTS = ["pixel.quantserve.com", "hzs14.cnzz.com"]
 IGNORE_HEADERS = frozenset([
   'set-cookie',
   'expires',
@@ -162,7 +162,8 @@ class MirroredContent(object):
     # If the transformed content is over 1MB, truncate it (yikes!)
     if len(content) > MAX_CONTENT_SIZE:
       logging.warning('Content is over 1MB; truncating')
-      content = content[:MAX_CONTENT_SIZE]
+      #content = content[:MAX_CONTENT_SIZE]
+      return self.error(404)
 
     new_content = MirroredContent(
       base_url=base_url,
