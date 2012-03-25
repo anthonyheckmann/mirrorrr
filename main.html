@@ -1,98 +1,75 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-  "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-<html>
-<head>
-  <title>West chamber proxy</title>
-  <link rel="stylesheet" href="static/base.2.css" type="text/css" charset="utf-8"/>
-  <link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon" />
-  <script type="text/javascript" charset="utf-8">
-    var activeColor = "#000000";
-    var disabledColor = "#959595";
-    var defaultValue = "type url here...";
-    
-    function loadBox() {
-      var box = document.getElementById("url_entry");
-      if (box.value != defaultValue) {
-        box.style.color = activeColor;
-      }
-    }
-    
-    function focusBox() {
-      var box = document.getElementById("url_entry");
-      if (box.value == defaultValue) {
-        box.value = "";
-        box.style.color = activeColor;
-      }
-    }
-    
-    function blurBox() {
-      var box = document.getElementById("url_entry");
-      if (box.value == "") {
-        box.style.color = disabledColor;
-        box.value = defaultValue;
-      }
-    }
-  </script>
+  <head>
+    <title>WCProxy:免费高速HTTP代理，速度快于SSH代理、VPN代理</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="ssh代理,vpn代理,youtube代理,在线代理,ssh帐号,vpn帐号" />
+	<meta name="description" content="WCProxy提供免费高速http代理,可用于访问youtube、facebook、twittter等站,速度快于ssh代理、vpn代理，可代替ssh帐号、在线代理搭建的youtube代理" />
+    <link rel="stylesheet" type="text/css" href="http://ufula.com/default.css" />
+    <style type="text/css">
+<!--
+.STYLE1 {color: #FF0000}
+.STYLE28 {color: #990000}
+.STYLE34 {color: #990000; font-weight: bold; }
+.STYLE36 {
+	color: #FF0000;
+	font-size: large;
+	font-weight: bold;
+}
+.STYLE37 {
+	font-size: medium;
+	font-weight: bold;
+}
+.STYLE38 {
+	color: #0000FF;
+	font-weight: bold;
+}
+-->
+    </style>
 </head>
-<body onload="loadBox();">
+  <body>
+    <div id="wrapper">
+       <div id="main_container">		
+        <div id="right_container">
+		 <div id="site_logo"><a href=".">WCProxy-快速代理 </a></div>
+          <div id="header_bar">
+           <ul>
+		    <li><a href=".">主页</a></li>
+			<li><a href="./how.html">设置教程</a></li>
+           </ul>
+          </div>	  
+          <div class="block">
+            <div class="inner">
+              <p >WCProxy是一种简单快速访问“互联网”的代理方式。本HTTP代理与VPN代理、SSH代理、在线代理等代理相比最大的优点是高速、稳定。个人2M带宽，使用WCProxy的速度好比直接访问，本代理可用于观看Youtube视频，多线程加速，速度快于在线代理、SSH、VPN搭建的youtube代理，视频流畅不卡。也可用于访问Facebook、Twitter等受限网站及突破公司网络限制。  </p>
+            </div>
+          </div>		  
+		  <h3 class="STYLE1"><a name="ssh代理" id="ssh代理"></a><span class="STYLE28">使用说明</span></h3>
+		    <p>WCProxy很容易使用，只需三个步骤： </p>
+		    <p><span class="STYLE34">第一步</span>：下载解压代理客户端：<a href="
+https://github.com/downloads/liruqi/west-chamber-season-3/westchamberproxy-20120325.zip
+			" target="_blank"><span class="STYLE36">点此下载</span></a>; Mac 系统<a href="
+https://github.com/downloads/liruqi/GoAgentX/GoAgentX-20120325.zip
+			" target="_blank"><span class="STYLE36">点此下载</span></a>(注意下载之后把端口修改为1998)</p>
+		    <p><span class="STYLE34">第二步</span>：配置浏览器：设置浏览器HTTP代理服务器地址：127.0.0.1 端口： 1998 。<a href="./how.html" target="_blank" class="STYLE1">点击这里</a>查看各浏览器详细设置教程。</p>
+		    <p> <span class="STYLE28"><strong>第三步</strong></span>：打开WCProxy文件夹内的 westchamberproxy.exe，代理开始工作。</p>
+		    <p>使用过程中遇到问题可先参考<span class="STYLE37"><a href="https://github.com/liruqi/west-chamber-season-3/issues" target="_blank">常见问题</a></span> ，如自行无法解决，请通过下面的联系方式获取技术支持！</p>
+		    <h3 class="STYLE1"><a name="bn" id="bn"></a><span class="STYLE28">备注说明</span></h3>
+            <p><span class="STYLE34">2、</span>代理客户端已用www.virscan.org（37种杀软）检验，请放心使用，大家可以自行去该网站检测。</p>
+          <p>有任何问题请发送邮件到：<a href="mailto:liruqi@gmail.com ">support@ufula.com</a></p>
+<blockquote>
+		    <p align="center">声明：1、WCProxy仅表示网络加速服务名称 2、本代理仅供学习使用,,请遵守本地法律</p>
+		  </blockquote>
+         </div>
+        <div id="footer_bar">
+          &copy; 2009-2012 <a href="http://zhan.renren.com/wcproxy" target="_blank">WCProxy</a> Inc. All rights reserved. Design by <a href="http://www.alissh.com">Alissh</a>.        </div>
+      </div>
+    </div>
+<span style="display:none;"><script language="javascript" type="text/javascript" src="http://js.users.51.la/4798694.js"></script>
 
-<div id="wrapper">
-<div id="container">
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v1.jiathis.com/code/jiathis_r.js?move=0&amp;btn=r5.gif&amp;uid=1512921" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+  </body>
 
-<div id="header">
-  <span>West-chamber proxy</span><span>西厢代理</span>
-</div>
-
-<div id="form_wrapper">
-  <form action="" method="get" accept-charset="utf-8">
-  <div id="input_wrapper">
-    <span id="http_prefix">http://</span><input onfocus="focusBox();" onblur="blurBox();" type="text" name="url" value="type url here..." id="url_entry"/><input id="go_button" type="submit" value="Go"/>
-  </div>
-  </form>
-
-  <div id="warning">Just another possibility to free yourself from insivible jail.
-  </div>
-</div>
-
-<div id="recent">
-  <div class="header">关于</div>
-	<div style="margin-left: 20px;">
-		<p>
-		可以通过<a href="https://github.com/liruqi/west-chamber-season-3/tree/master/west-chamber-proxy">项目主页</a>、<a href="https://plus.google.com/108661470402896863593/posts">Google+ Page</a>了解更多。
-		</p>
-	</div>
-
-  <div class="header">Download 下载</div>
-  <div id="recent_entries">
-    <p>本代理需要配合客户端使用，客户度下载
-        <a target="_blank" href="https://github.com/liruqi/west-chamber-season-3/downloads">Windows / Linux</a>, 
-        <a target="_blank" href="https://github.com/liruqi/GoAgentX/downloads">MacOSX</a>
-	</p>
-  </div>
-</div>
-
-<div class="secure">
-  {% if secure_url %}<a href="{{secure_url}}">{% endif %}<img src="/static/{% if secure_url %}no{% endif %}lock.png" width="16" height="16"> {% if secure_url %}not secure</a>{% else %}secure{% endif %}
-</div>
-
-</div>
-</div>
-
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-7404902-11']);
-  _gaq.push(['_setDomainName', 'appspot.com']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-
-</body>
 </html>
