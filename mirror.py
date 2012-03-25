@@ -247,13 +247,16 @@ class MirrorHandler(BaseHandler):
                   self.request.user_agent,
                   self.request.referer,
                   wcproxy)
+    if self.request.headers["Host"]=="annjonescnch.appspot.com":
+      if wcproxy == "":
+        self.redirect("http://westchamberproxy.appspot.com/")
     logging.debug('Base_url = "%s", url = "%s"', base_url, self.request.url)
 
     translated_address = self.get_relative_url()[1:]  # remove leading /
     if translated_address == "favicon.ico":
       return self.redirect("/favicon.ico")
     mirrored_url = HTTP_PREFIX + translated_address
-    if self.request.user_agent.find("Android") == -1:
+    if self.request.user_agent.find("Android") == -1 and self.request.headers["Host"]=="opliruqi.appspot.com":
       if base_url.split('.')[-1] != "com":
         return self.redirect("http://liruqi001.appspot.com/" + translated_address)
       if base_url.split('.')[-1] == "com":
