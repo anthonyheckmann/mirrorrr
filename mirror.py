@@ -161,9 +161,9 @@ class MirroredContent(object):
 
     # If the transformed content is over 1MB, truncate it (yikes!)
     if len(content) > MAX_CONTENT_SIZE:
-      logging.warning('Content is over 1MB; truncating')
+      logging.warning('Content is over 1MB; ignoring')
       #content = content[:MAX_CONTENT_SIZE]
-      return self.error(404)
+      return None
 
     new_content = MirroredContent(
       base_url=base_url,
@@ -243,13 +243,13 @@ class MirrorHandler(BaseHandler):
     # Log the user-agent and referrer, to see who is linking to us.
     wcproxy = ""
     if "X-WCProxy" in self.request.headers: wcproxy = self.request.headers["X-WCProxy"]
-    logging.debug('User-Agent = "%s", Referrer = "%s", X-WCProxy = "%s"',
+    logging.debug('User-Agent = "%s", Host = "%s", X-WCProxy = "%s"',
                   self.request.user_agent,
-                  self.request.referer,
+                  self.request.headers["Host"],
                   wcproxy)
     if self.request.headers["Host"]=="annjonescnch.appspot.com":
       if wcproxy == "":
-        self.redirect("http://westchamberproxy.appspot.com/")
+        return self.redirect("http://westchamberproxy.appspot.com/")
     logging.debug('Base_url = "%s", url = "%s"', base_url, self.request.url)
 
     translated_address = self.get_relative_url()[1:]  # remove leading /
