@@ -241,10 +241,12 @@ class MirrorHandler(BaseHandler):
       logging.warning('Encountered bad domain "%s"; ignoring', base_url)
       return self.error(404)
     # Log the user-agent and referrer, to see who is linking to us.
+    wcproxy = ""
+    if "X-WCProxy" in self.request.headers: wcproxy = self.request.headers["X-WCProxy"]
     logging.debug('User-Agent = "%s", Referrer = "%s", X-WCProxy = "%s"',
                   self.request.user_agent,
                   self.request.referer,
-                  self.request.headers["X-WCProxy"])
+                  wcproxy)
     logging.debug('Base_url = "%s", url = "%s"', base_url, self.request.url)
 
     translated_address = self.get_relative_url()[1:]  # remove leading /
