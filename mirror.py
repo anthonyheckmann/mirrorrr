@@ -22,6 +22,7 @@ import pickle
 import re
 import time
 import urllib
+import string
 import wsgiref.handlers
 
 from google.appengine.api import memcache
@@ -234,6 +235,11 @@ class HowHandler(BaseHandler):
     self.response.out.write(template.render("how.html", {}))
 
 class MirrorHandler(BaseHandler):
+  def printable(self, s):
+    for c in s:
+      if c in string.printable:
+        return False
+    return True
   def get(self, base_url):
     return self.mirror(base_url, urlfetch.GET)
   def post(self, base_url):
@@ -261,6 +267,8 @@ class MirrorHandler(BaseHandler):
     logging.debug('Base_url = "%s", url = "%s"', base_url, self.request.url)
 
     translated_address = self.get_relative_url()[1:]  # remove leading /
+    unquoted = urllib.unquote(translated_address)
+    if self.printable(unquoted): translated_address = unquoted
     if translated_address == "favicon.ico":
       return self.redirect("/favicon.ico")
     mirrored_url = HTTP_PREFIX + translated_address
