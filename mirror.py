@@ -117,7 +117,7 @@ class MirroredContent(object):
     return memcache.get(key_name)
 
   @staticmethod
-  def fetch_and_store(key_name, base_url, translated_address, mirrored_url, method):
+  def fetch_and_store(key_name, base_url, translated_address, mirrored_url, method, body):
     """Fetch and cache a page.
     
     Args:
@@ -141,7 +141,8 @@ class MirroredContent(object):
     try:
       response = urlfetch.fetch(mirrored_url, 
                                 follow_redirects=False, 
-                                method=method)
+                                method=method,
+                                payload=body)
     except (urlfetch.Error, apiproxy_errors.Error):
       logging.exception("Could not fetch URL")
       return None
@@ -285,7 +286,8 @@ class MirrorHandler(BaseHandler):
       content = MirroredContent.fetch_and_store(key_name, base_url,
                                                 translated_address,
                                                 mirrored_url,
-                                                urlfetch.POST)
+                                                method,
+                                                self.request.body)
     if content is None:
       return self.error(404)
 
