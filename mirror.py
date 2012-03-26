@@ -117,7 +117,7 @@ class MirroredContent(object):
     return memcache.get(key_name)
 
   @staticmethod
-  def fetch_and_store(key_name, base_url, translated_address, mirrored_url):
+  def fetch_and_store(key_name, base_url, translated_address, mirrored_url, method):
     """Fetch and cache a page.
     
     Args:
@@ -139,7 +139,9 @@ class MirroredContent(object):
 
     logging.debug("Fetching '%s'", mirrored_url)
     try:
-      response = urlfetch.fetch(mirrored_url, follow_redirects=False)
+      response = urlfetch.fetch(mirrored_url, 
+                                follow_redirects=False, 
+                                method=method)
     except (urlfetch.Error, apiproxy_errors.Error):
       logging.exception("Could not fetch URL")
       return None
@@ -232,6 +234,11 @@ class HowHandler(BaseHandler):
 
 class MirrorHandler(BaseHandler):
   def get(self, base_url):
+    return self.mirror(base_url, urlfetch.GET)
+  def post(self, base_url):
+    return self.mirror(base_url, urlfetch.POST)
+
+  def mirror(self, base_url, method):
     assert base_url
 
     if base_url in BAD_HOSTS:
@@ -272,12 +279,13 @@ class MirrorHandler(BaseHandler):
 
     content = MirroredContent.get_by_key_name(key_name)
     cache_miss = False
-    if content is None:
+    if content is None or method == urlfetch.POST:
       logging.debug("Cache miss")
       cache_miss = True
       content = MirroredContent.fetch_and_store(key_name, base_url,
                                                 translated_address,
-                                                mirrored_url)
+                                                mirrored_url,
+                                                urlfetch.POST)
     if content is None:
       return self.error(404)
 
@@ -353,7 +361,7 @@ class CleanupHandler(webapp.RequestHandler):
 app = webapp.WSGIApplication([
   (r"/", HomeHandler),
   (r"/main", HomeHandler),
-  (r"/how", HowHandler),
+  (r"/how.html", HowHandler),
   (r"/kaboom", KaboomHandler),
   (r"/admin", AdminHandler),
   (r"/cleanup", CleanupHandler),
