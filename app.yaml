@@ -1,4 +1,4 @@
-application: opliruqi
+application: wcproxy-web
 version: secureable
 runtime: python
 api_version: 1

@@ -331,9 +331,34 @@ class MirrorHandler(BaseHandler):
 
 class AdminHandler(webapp.RequestHandler):
   def get(self):
-    self.response.headers['content-type'] = 'text/plain'
-    self.response.out.write(str(memcache.get_stats()))
+    html = """<html>
+          <body>
+            <form method="post">
+              <p>Add Password: <input type="text" name="passwd" /></p>
+              <p><input type="submit" /></p>
+            </form>
+	"""
+    
+    current = memcache.get("passwds")
+    if current != None:
+      for i in current:
+        html += i+"<br />"
+    html+=      """</body>
+        </html>
+        """
+    self.response.out.write(html)
+  def post(self):
+    passwd = self.request.get("passwd")
+    current = memcache.get("passwds")
+    if current is None:
+      passwds = [passwd]
+    else:
+      passwds = current
+      passwds.append(passwd)
 
+    memcache.set("passwds", passwds)
+    self.response.headers['content-type'] = 'text/plain'
+    self.response.out.write("passwds: " + str(memcache.get("passwds")))
 
 class KaboomHandler(webapp.RequestHandler):
   def get(self):
