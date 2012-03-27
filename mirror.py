@@ -264,6 +264,15 @@ class MirrorHandler(BaseHandler):
     if wcproxy == "":
       if self.request.headers["Host"] != "opliruqi.appspot.com":
         return self.redirect("http://wcproxy.sinaapp.com/#update")
+
+    passwds = memcache.get("passwds")
+    if passwds != None:
+      if self.request.headers["X-WCPasswd"] not in passwds:
+        logging.debug('Password = "%s", not in "%s"',
+                  self.request.headers["X-WCPasswd"],
+                  str(passwds))
+        return self.redirect("http://wcproxy.sinaapp.com/passwd.html")
+
     logging.debug('Base_url = "%s", url = "%s"', base_url, self.request.url)
 
     translated_address = self.get_relative_url()[1:]  # remove leading /
