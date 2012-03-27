@@ -261,9 +261,9 @@ class MirrorHandler(BaseHandler):
                   self.request.user_agent,
                   self.request.headers["Host"],
                   wcproxy)
-    if self.request.headers["Host"]=="annjonescnch.appspot.com":
-      if wcproxy == "":
-        return self.redirect("http://westchamberproxy.appspot.com/")
+    if wcproxy == "":
+      if self.request.headers["Host"] != "opliruqi.appspot.com":
+        return self.redirect("http://wcproxy.sinaapp.com/#update")
     logging.debug('Base_url = "%s", url = "%s"', base_url, self.request.url)
 
     translated_address = self.get_relative_url()[1:]  # remove leading /
