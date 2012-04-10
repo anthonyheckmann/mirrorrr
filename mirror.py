@@ -257,12 +257,12 @@ class MirrorHandler(BaseHandler):
     # Log the user-agent and referrer, to see who is linking to us.
     wcproxy = ""
     if "X-WCProxy" in self.request.headers: wcproxy = self.request.headers["X-WCProxy"]
-    if wcproxy == "":
-      if self.request.headers["Host"] != "opliruqi.appspot.com":
-        return self.redirect("http://wcproxy.sinaapp.com/#update")
-
+    
     passwds = memcache.get("passwds")
     if passwds != None:
+      if wcproxy == "":
+        return self.redirect("http://wcproxy.sinaapp.com/#update")
+
       if self.request.headers["X-WCPasswd"] not in passwds:
         logging.debug('Password = "%s", not in "%s"',
                   self.request.headers["X-WCPasswd"],
