@@ -289,6 +289,8 @@ class MirrorHandler(BaseHandler):
 
     if base_url in HSTS_DOMAINS:
       mirrored_url = HTTPS_PREFIX + translated_address
+    if base_url in ["twitter.com", "www.twitter.com", "facebook.com", "www.facebook.com"]:
+      return self.redirect(HTTPS_PREFIX + translated_address)
 
     # Use sha256 hash instead of mirrored url for the key name, since key
     # names can only be 500 bytes in length; URLs may be up to 2KB.
