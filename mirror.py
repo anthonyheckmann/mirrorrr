@@ -52,7 +52,7 @@ HSTS_DOMAINS = {
     "www.github.com": 1,
 }
 
-BAD_HOSTS = ["pixel.quantserve.com", "hzs14.cnzz.com", "armdl.adobe.com", "192.168.1.233", "wpi.renren.com"]
+BAD_HOSTS = ["pixel.quantserve.com", "hzs14.cnzz.com", "armdl.adobe.com", "192.168.1.233", "wpi.renren.com", "b.scorecardresearch.com"]
 IGNORE_HEADERS = frozenset([
   'set-cookie',
   'expires',
