@@ -269,7 +269,7 @@ class MirrorHandler(BaseHandler):
                   str(passwds))
         return self.redirect("http://wcproxy.sinaapp.com/passwd.html")
 
-    logging.debug('X-WCProxy = "%s", Base_url = "%s", url = "%s"', wcproxy, base_url, self.request.url)
+    logging.debug('X-WCProxy = "%s", Base_url = "%s", url = "%s", clientIp = "%s"', wcproxy, base_url, self.request.url, self.request.remote_addr)
 
     translated_address = self.get_relative_url()[1:]  # remove leading /
     unquoted = urllib.unquote(translated_address)
