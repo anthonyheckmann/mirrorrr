@@ -1,0 +1,3 @@
+blacklist:
+- subnet: 60.208.250.243
+  description: Spam IP, ref http://www.projecthoneypot.org/ip_60.208.250.243
