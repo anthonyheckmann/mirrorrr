@@ -203,29 +203,11 @@ class HomeHandler(BaseHandler):
         inputted_url = inputted_url[len(HTTP_PREFIX):]
       return self.redirect("/" + inputted_url)
 
-    latest_urls = memcache.get('latest_urls')
-    if latest_urls is None:
-      latest_urls = EntryPoint.gql("ORDER BY last_updated DESC").fetch(25)
-
-      # Generate a display address that truncates the URL, adds an ellipsis.
-      # This is never actually saved in the Datastore.
-      for entry_point in latest_urls:
-        entry_point.display_address = \
-          entry_point.translated_address[:MAX_URL_DISPLAY_LENGTH]
-        if len(entry_point.display_address) == MAX_URL_DISPLAY_LENGTH:
-          entry_point.display_address += '...'
-
-      if not memcache.add('latest_urls', latest_urls,
-                          time=EXPIRATION_RECENT_URLS_SECONDS):
-        logging.error('memcache.add failed: latest_urls')
-
-    # Do this dictionary construction here, to decouple presentation from
     # how we store data.
     secure_url = None
     if self.request.scheme == "http":
       secure_url = "https://mirrorrr.appspot.com"
     context = {
-      "latest_urls": latest_urls,
       "secure_url": secure_url,
     }
     self.response.out.write(template.render("main.html", context))
@@ -306,26 +288,6 @@ class MirrorHandler(BaseHandler):
     if content is None:
       return self.error(404)
 
-    # Store the entry point down here, once we know the request is good and
-    # there has been a cache miss (i.e., the page expired). If the referrer
-    # wasn't local, or it was '/', then this is an entry point.
-    if (cache_miss and
-        'Googlebot' not in self.request.user_agent and
-        'Slurp' not in self.request.user_agent and
-        (not self.request.referer.startswith(self.request.host_url) or
-         self.request.referer == self.request.host_url + "/")):
-      # Ignore favicons as entry points; they're a common browser fetch on
-      # every request for a new site that we need to special case them here.
-      if not self.request.url.endswith("favicon.ico"):
-        logging.info("Inserting new entry point")
-        entry_point = EntryPoint(
-          key_name=key_name,
-          translated_address=translated_address)
-        try:
-          entry_point.put()
-        except (db.Error, apiproxy_errors.Error):
-          logging.exception("Could not insert EntryPoint")
-    
     for key, value in content.headers.iteritems():
       self.response.headers[key] = value
     if not DEBUG:
@@ -350,6 +312,28 @@ class AdminHandler(webapp.RequestHandler):
     if current != None:
       for i in current:
         html += i+"<br />"
+
+    latest_urls = EntryPoint.gql("ORDER BY last_updated DESC").fetch(7500)
+
+    # Generate a display address that truncates the URL, adds an ellipsis.
+    # This is never actually saved in the Datastore.
+    host_cnt = {}
+    for entry_point in latest_urls:
+      if not entry_point.translated_address:
+        continue
+      host = entry_point.translated_address.split('/')[0]
+      if host in host_cnt:
+        host_cnt[host] += 1
+      else:
+        host_cnt[host] = 1
+
+      if not memcache.set('latest_host_cnt', host_cnt):
+        logging.error('memcache.add failed: latest_urls')
+
+    for host in host_cnt:
+      if host_cnt[host]>3: html += host + (" %d" % host_cnt[host]) + "<br />"
+      logging.info(host + (" %d" % host_cnt[host]))
+
     html+=      """</body>
         </html>
         """
