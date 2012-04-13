@@ -326,14 +326,16 @@ class AdminHandler(webapp.RequestHandler):
         host_cnt[host] += 1
       else:
         host_cnt[host] = 1
-
-      if not memcache.set('latest_host_cnt', host_cnt):
-        logging.error('memcache.add failed: latest_urls')
-
+    
+    host_top = {}
     for host in host_cnt:
-      if host_cnt[host]>3: html += host + (" %d" % host_cnt[host]) + "<br />"
+      if host_cnt[host]>3: 
+        html += host + (" %d" % host_cnt[host]) + "<br />"
+        host_top[host] = host_cnt[host]
       logging.info(host + (" %d" % host_cnt[host]))
 
+    if not memcache.set('latest_host_cnt', host_top):
+      logging.error('memcache.add failed: latest_urls')
     html+=      """</body>
         </html>
         """
