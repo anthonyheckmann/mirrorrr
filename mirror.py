@@ -267,7 +267,7 @@ class MirrorHandler(BaseHandler):
 
     if base_url in HSTS_DOMAINS:
       mirrored_url = HTTPS_PREFIX + translated_address
-    if base_url in ["twitter.com", "www.twitter.com", "facebook.com", "www.facebook.com"]:
+    if base_url in ["facebook.com", "www.facebook.com"]:
       return self.redirect(HTTPS_PREFIX + translated_address)
 
     # Use sha256 hash instead of mirrored url for the key name, since key
